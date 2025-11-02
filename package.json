@@ -1,0 +1,39 @@
+{
+  "name": "portfolio-samuel-sanchez",
+  "version": "1.0.0",
+  "description": "Portfolio personal profesional de Samuel Sánchez Heredia - Desarrollador Web",
+  "private": true,
+  "keywords": [
+    "portfolio",
+    "web developer",
+    "personal website",
+    "samuel sanchez",
+    "html5",
+    "css3",
+    "javascript"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Samuel Sánchez Heredia",
+    "url": "https://github.com/samuelsanchezheredia"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samuelsanchezheredia/portfolio.git"
+  },
+  "homepage": "https://samuelsanchezheredia.github.io/portfolio",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --open --config webpack.config.dev.js",
+    "build": "webpack --config webpack.config.prod.js",
+    "watch": "webpack --watch --config webpack.config.dev.js"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "html-webpack-plugin": "^5.6.0",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4",
+    "webpack-merge": "^5.10.0"
+  }
+}
