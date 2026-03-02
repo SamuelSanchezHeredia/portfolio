@@ -4,11 +4,11 @@
    Variables CSS
    ========================================================================== */
 :root {
-  /* Colores - Tema Oscuro con Beige */
-  --primary-color: #d4a574;
-  --primary-dark: #b8935f;
-  --primary-light: #e8c9a0;
-  --accent-color: #d4a574;
+  /* Colores - Tema Oscuro con Naranja Neón Suave */
+  --primary-color: #ff9f43;
+  --primary-dark: #e08530;
+  --primary-light: #ffbe76;
+  --accent-color: #ff9f43;
   --text-color: #f9fafb;
   --text-light: #d1d5db;
   --text-muted: #9ca3af;
@@ -18,7 +18,7 @@
   --border-color: #2a2a2a;
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
-  --shadow-colored: 0 10px 30px -5px rgba(212, 165, 116, 0.3);
+  --shadow-colored: 0 10px 30px -5px rgba(255, 159, 67, 0.3);
 
   /* Tipografía */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -154,7 +154,7 @@ button {
   background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
   margin: var(--spacing-sm) auto 0;
   border-radius: 2px;
-  box-shadow: 0 0 10px rgba(212, 165, 116, 0.5);
+  box-shadow: 0 0 10px rgba(255, 159, 67, 0.5);
 }
 
 /* Botones */
@@ -203,7 +203,7 @@ button {
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   z-index: 1000;
-  border-bottom: 1px solid rgba(212, 165, 116, 0.15);
+  border-bottom: 1px solid rgba(255, 159, 67, 0.15);
 }
 
 .nav {
@@ -217,9 +217,14 @@ button {
 .nav__logo a {
   font-size: var(--font-size-xl);
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--text-color);
   transition: var(--transition);
 }
+
+.nav__logo-subtitle {
+  color: var(--primary-color);
+}
+
 
 .nav__logo a:hover {
   color: var(--primary-light);
@@ -276,7 +281,7 @@ button {
   justify-content: center;
   padding-top: 70px;
   position: relative;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1410 50%, #0f0f0f 100%);
+  background: linear-gradient(135deg, #020202 0%, #0a0500 50%, #020202 100%);
   overflow: hidden;
 }
 
@@ -288,8 +293,8 @@ button {
   width: 100%;
   height: 100%;
   background:
-    radial-gradient(circle at 20% 50%, rgba(212, 165, 116, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(232, 201, 160, 0.08) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(255, 159, 67, 0.03) 0%, transparent 70%),
+    radial-gradient(circle at 80% 80%, rgba(255, 190, 118, 0.02) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -302,7 +307,7 @@ button {
   height: 100%;
   background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
   background-size: 50px 50px;
-  opacity: 0.3;
+  opacity: 0.15;
   pointer-events: none;
 }
 
@@ -351,12 +356,13 @@ button {
 
 .hero__name {
   display: block;
-  background: linear-gradient(120deg, #fff 0%, #e0e7ff 100%);
+  background: linear-gradient(120deg, #ff7b00 0%, #ffae62 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-size: 4rem;
   margin-top: 0.5rem;
+  text-shadow: 0 0 5px rgba(255, 159, 67, 0.5);
 }
 
 .hero__subtitle {
@@ -390,13 +396,13 @@ button {
 }
 
 .btn--primary {
-  background: white;
-  color: var(--primary-color);
+  background: var(--primary-dark);
+  color: white;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .btn--primary:hover {
-  background: #f8f9fa;
+  background: var(--primary-light);
   transform: translateY(-3px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
@@ -640,7 +646,7 @@ button {
   transform: translateY(-5px);
   box-shadow: var(--shadow-colored);
   border-color: var(--primary-color);
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(212, 165, 116, 0.1) 100%);
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(255, 159, 67, 0.1) 100%);
 }
 
 .about__info-item i {
@@ -681,7 +687,7 @@ button {
 
 .btn--cv:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(212, 165, 116, 0.4);
+  box-shadow: 0 15px 40px rgba(255, 159, 67, 0.4);
   border-color: var(--primary-light);
   background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
 }
@@ -700,8 +706,14 @@ button {
 
 .skills__container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing-xl);
+}
+
+.skills__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
 }
 
 .skills__category {
@@ -752,7 +764,7 @@ button {
   background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
   border-radius: 5px;
   transition: width 1s ease;
-  box-shadow: 0 0 10px rgba(212, 165, 116, 0.5);
+  box-shadow: 0 0 10px rgba(255, 159, 67, 0.5);
 }
 
 /* ==========================================================================
@@ -809,7 +821,7 @@ button {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(212, 165, 116, 0.95) 0%, rgba(184, 147, 95, 0.95) 100%);
+  background: linear-gradient(135deg, rgba(255, 159, 67, 0.95) 0%, rgba(224, 133, 48, 0.95) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -867,12 +879,12 @@ button {
 
 .tag {
   padding: 0.25rem 0.75rem;
-  background: rgba(212, 165, 116, 0.2);
+  background: rgba(255, 159, 67, 0.2);
   color: var(--primary-light);
   border-radius: 1rem;
   font-size: var(--font-size-sm);
   font-weight: 500;
-  border: 1px solid rgba(212, 165, 116, 0.3);
+  border: 1px solid rgba(255, 159, 67, 0.3);
   transition: var(--transition);
 }
 
@@ -954,7 +966,7 @@ button {
 .lightbox__prev,
 .lightbox__next {
   position: absolute;
-  background: rgba(212, 165, 116, 0.9);
+  background: rgba(255, 159, 67, 0.9);
   color: white;
   border: none;
   width: 50px;
@@ -991,7 +1003,7 @@ button {
 .lightbox__next:hover {
   background: var(--primary-color);
   transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(212, 165, 116, 0.5);
+  box-shadow: 0 0 20px rgba(255, 159, 67, 0.5);
 }
 
 .lightbox__prev:hover {
@@ -1144,7 +1156,7 @@ button {
 .form__input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 159, 67, 0.1);
   background: var(--bg-color);
 }
 
@@ -1292,7 +1304,7 @@ button {
 .scroll-top:hover {
   background: var(--primary-light);
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(212, 165, 116, 0.4);
+  box-shadow: 0 15px 35px rgba(255, 159, 67, 0.4);
 }
 
 /* ==========================================================================

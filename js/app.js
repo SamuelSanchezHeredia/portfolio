@@ -418,3 +418,11 @@ if (document.readyState === 'loading') {
   initLightbox();
 }
 
+// ==========================================
+// Dynamic Year in Footer
+// ==========================================
+const yearElement = document.getElementById('current-year');
+if (yearElement) {
+  yearElement.textContent = new Date().getFullYear();
+}
+
