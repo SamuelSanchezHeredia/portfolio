@@ -1,6 +1,6 @@
 # Portfolio Personal - Samuel Sánchez Heredia
 
-![Portfolio Preview](./img/preview.jpg)
+![Portfolio Preview](./img/preview.png)
 
 Portfolio personal profesional desarrollado con HTML5, CSS3 y JavaScript vanilla. Diseño moderno, responsive y optimizado para una excelente experiencia de usuario.
 
