@@ -1,428 +1,131 @@
-// Portfolio JavaScript - Samuel Sánchez Heredia
+// Interacciones del portfolio de Samuel Sánchez Heredia.
 
-// ==========================================
-// Mobile Menu Toggle
-// ==========================================
+document.body.classList.add('js-ready');
+
 const navToggle = document.getElementById('nav-toggle');
 const navMenu = document.getElementById('nav-menu');
 const navLinks = document.querySelectorAll('.nav__link');
-
-if (navToggle) {
-  navToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('show');
-    const icon = navToggle.querySelector('i');
-    icon.classList.toggle('fa-bars');
-    icon.classList.toggle('fa-times');
-  });
-}
-
-// Cerrar menú al hacer click en un link
-navLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    navMenu.classList.remove('show');
-    const icon = navToggle.querySelector('i');
-    icon.classList.add('fa-bars');
-    icon.classList.remove('fa-times');
-  });
-});
-
-// ==========================================
-// Active Link on Scroll
-// ==========================================
+const header = document.querySelector('.header');
+const scrollTopButton = document.getElementById('scroll-top');
 const sections = document.querySelectorAll('section[id]');
 
-function scrollActive() {
-  const scrollY = window.pageYOffset;
+function setMenuState(isOpen) {
+  if (!navMenu || !navToggle) return;
+  navMenu.classList.toggle('show', isOpen);
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+  navToggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+  const icon = navToggle.querySelector('i');
+  icon?.classList.toggle('fa-bars', !isOpen);
+  icon?.classList.toggle('fa-times', isOpen);
+}
+
+navToggle?.addEventListener('click', () => {
+  setMenuState(!navMenu?.classList.contains('show'));
+});
+
+navLinks.forEach(link => link.addEventListener('click', () => setMenuState(false)));
+
+function updateScrollState() {
+  const scrollY = window.scrollY;
+  header?.classList.toggle('header--scrolled', scrollY > 24);
+  scrollTopButton?.classList.toggle('show', scrollY > 400);
 
   sections.forEach(section => {
-    const sectionHeight = section.offsetHeight;
-    const sectionTop = section.offsetTop - 100;
-    const sectionId = section.getAttribute('id');
-    const link = document.querySelector(`.nav__link[href*="${sectionId}"]`);
-
-    if (link) {
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
-    }
+    const link = document.querySelector(`.nav__link[href="#${section.id}"]`);
+    if (!link) return;
+    const isActive = scrollY >= section.offsetTop - 140 && scrollY < section.offsetTop + section.offsetHeight - 140;
+    link.classList.toggle('active', isActive);
   });
 }
 
-window.addEventListener('scroll', scrollActive);
-
-// ==========================================
-// Scroll to Top Button
-// ==========================================
-const scrollTopBtn = document.getElementById('scroll-top');
-
-function toggleScrollButton() {
-  if (window.pageYOffset > 400) {
-    scrollTopBtn.classList.add('show');
-  } else {
-    scrollTopBtn.classList.remove('show');
-  }
-}
-
-window.addEventListener('scroll', toggleScrollButton);
-
-if (scrollTopBtn) {
-  scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+let scrollFrame;
+function scheduleScrollUpdate() {
+  if (scrollFrame) return;
+  scrollFrame = requestAnimationFrame(() => {
+    updateScrollState();
+    scrollFrame = undefined;
   });
 }
 
-// ==========================================
-// Scroll Reveal Animation
-// ==========================================
-function revealOnScroll() {
-  const reveals = document.querySelectorAll('.about__info-item, .project__card, .skill, .contact__card');
+window.addEventListener('scroll', scheduleScrollUpdate, { passive: true });
+window.addEventListener('resize', scheduleScrollUpdate, { passive: true });
+scrollTopButton?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-  reveals.forEach(element => {
-    const windowHeight = window.innerHeight;
-    const elementTop = element.getBoundingClientRect().top;
-    const elementVisible = 150;
-
-    if (elementTop < windowHeight - elementVisible) {
-      element.style.opacity = '1';
-      element.style.transform = 'translateY(0)';
-    }
-  });
-}
-
-// Inicializar elementos para animación
-window.addEventListener('DOMContentLoaded', () => {
-  const reveals = document.querySelectorAll('.about__info-item, .project__card, .skill, .contact__card');
-  reveals.forEach(element => {
-    element.style.opacity = '0';
-    element.style.transform = 'translateY(30px)';
-    element.style.transition = 'all 0.6s ease';
-  });
-});
-
-window.addEventListener('scroll', revealOnScroll);
-revealOnScroll(); // Ejecutar al cargar
-
-// ==========================================
-// Animar barras de habilidades cuando sean visibles
-// ==========================================
-function animateSkillBars() {
-  const skillsSection = document.querySelector('.skills');
-  const skillBars = document.querySelectorAll('.skill__percentage');
-
-  if (!skillsSection) return;
-
-  const sectionTop = skillsSection.getBoundingClientRect().top;
-  const windowHeight = window.innerHeight;
-
-  if (sectionTop < windowHeight - 100) {
-    skillBars.forEach(bar => {
-      const width = bar.style.width;
-      bar.style.width = '0';
-      setTimeout(() => {
-        bar.style.width = width;
-      }, 100);
-    });
-
-    // Remover el listener después de animar
-    window.removeEventListener('scroll', animateSkillBars);
-  }
-}
-
-window.addEventListener('scroll', animateSkillBars);
-
-// ==========================================
-// Contact Form Handling
-// ==========================================
-const contactForm = document.getElementById('contact-form');
-
-if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    // Obtener valores del formulario
-    const formData = {
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      message: document.getElementById('message').value
-    };
-
-    // Aquí puedes integrar con un servicio como Formspree, EmailJS, etc.
-    console.log('Formulario enviado:', formData);
-
-    // Mostrar mensaje de éxito
-    alert('¡Gracias por tu mensaje! Te responderé pronto.');
-
-    // Limpiar formulario
-    contactForm.reset();
-
-    // Nota: Para producción, integra con un servicio real de envío de emails
-    // Por ejemplo: https://formspree.io/ o https://www.emailjs.com/
-  });
-}
-
-// ==========================================
-// Header Scroll Effect
-// ==========================================
-const header = document.querySelector('.header');
-
-function scrollHeader() {
-  if (window.pageYOffset > 50) {
-    header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
-  } else {
-    header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
-  }
-}
-
-window.addEventListener('scroll', scrollHeader);
-
-// ==========================================
-// Typing Effect (opcional para el hero)
-// ==========================================
-function typeWriter(element, text, speed = 100) {
-  let i = 0;
-  element.innerHTML = '';
-
-  function type() {
-    if (i < text.length) {
-      element.innerHTML += text.charAt(i);
-      i++;
-      setTimeout(type, speed);
-    }
-  }
-
-  type();
-}
-
-// Descomentar para activar efecto de escritura
-// window.addEventListener('DOMContentLoaded', () => {
-//   const heroTitle = document.querySelector('.hero__name');
-//   if (heroTitle) {
-//     const text = heroTitle.textContent;
-//     typeWriter(heroTitle, text, 100);
-//   }
-// });
-
-// ==========================================
-// Lazy Loading de Imágenes
-// ==========================================
-if ('IntersectionObserver' in window) {
-  const imageObserver = new IntersectionObserver((entries, observer) => {
+const revealItems = document.querySelectorAll('.about__info-item, .project__card, .skill, .contact__card');
+if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
-          observer.unobserve(img);
-        }
-      }
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
     });
-  });
-
-  // Observar todas las imágenes con data-src
-  document.querySelectorAll('img[data-src]').forEach(img => {
-    imageObserver.observe(img);
-  });
+  }, { threshold: 0.12, rootMargin: '0px 0px -48px' });
+  revealItems.forEach(item => revealObserver.observe(item));
+} else {
+  revealItems.forEach(item => item.classList.add('is-visible'));
 }
 
-// ==========================================
-// Dark Mode Toggle (opcional)
-// ==========================================
-function initDarkMode() {
-  const darkModeToggle = document.getElementById('dark-mode-toggle');
-
-  if (!darkModeToggle) return;
-
-  // Verificar preferencia guardada
-  const darkMode = localStorage.getItem('darkMode');
-
-  if (darkMode === 'enabled') {
-    document.body.classList.add('dark-mode');
-  }
-
-  darkModeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-
-    if (document.body.classList.contains('dark-mode')) {
-      localStorage.setItem('darkMode', 'enabled');
-    } else {
-      localStorage.setItem('darkMode', null);
-    }
-  });
+const skillsSection = document.querySelector('.skills');
+if (skillsSection && 'IntersectionObserver' in window) {
+  const skillObserver = new IntersectionObserver((entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+    skillsSection.classList.add('skills--visible');
+    observer.disconnect();
+  }, { threshold: 0.2 });
+  skillObserver.observe(skillsSection);
 }
 
-// Descomentar para activar modo oscuro
-// initDarkMode();
-
-// ==========================================
-// Performance: Debounce function
-// ==========================================
-function debounce(func, wait = 10, immediate = true) {
-  let timeout;
-  return function() {
-    const context = this;
-    const args = arguments;
-    const later = function() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-}
-
-// Aplicar debounce a eventos de scroll
-const efficientScroll = debounce(() => {
-  scrollActive();
-  toggleScrollButton();
-  revealOnScroll();
-});
-
-window.addEventListener('scroll', efficientScroll);
-
-// ==========================================
-// Console Message
-// ==========================================
-console.log('%c¡Hola! 👋', 'font-size: 20px; font-weight: bold; color: #2563eb;');
-console.log('%c¿Estás revisando el código? ¡Me gusta tu curiosidad!', 'font-size: 14px; color: #6b7280;');
-console.log('%cSi quieres trabajar juntos, no dudes en contactarme.', 'font-size: 14px; color: #6b7280;');
-
-// ==========================================
-// Service Worker Registration (PWA)
-// ==========================================
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    // Descomentar cuando tengas un service worker
-    // navigator.serviceWorker.register('/service-worker.js')
-    //   .then(registration => {
-    //     console.log('Service Worker registrado:', registration);
-    //   })
-    //   .catch(error => {
-    //     console.log('Error al registrar Service Worker:', error);
-    //   });
-  });
-}
-
-// ==========================================
-// Image Lightbox
-// ==========================================
 const lightbox = document.getElementById('lightbox');
 const lightboxImage = document.getElementById('lightbox-image');
 const lightboxCaption = document.getElementById('lightbox-caption');
-const lightboxClose = document.getElementById('lightbox-close');
-const lightboxPrev = document.getElementById('lightbox-prev');
-const lightboxNext = document.getElementById('lightbox-next');
-const lightboxOverlay = document.querySelector('.lightbox__overlay');
-
+const projectButtons = [...document.querySelectorAll('.project__link--view')];
+const imagesData = projectButtons.map(button => ({
+  src: button.dataset.image,
+  title: button.dataset.title
+}));
 let currentImageIndex = 0;
-let imagesData = [];
 
-// Recopilar todas las imágenes de proyectos
-function initLightbox() {
-  const projectViewButtons = document.querySelectorAll('.project__link--view');
-
-  imagesData = Array.from(projectViewButtons).map(btn => ({
-    src: btn.dataset.image,
-    title: btn.dataset.title
-  }));
-
-  projectViewButtons.forEach((btn, index) => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      openLightbox(index);
-    });
-  });
+function updateLightbox() {
+  const image = imagesData[currentImageIndex];
+  if (!image || !lightboxImage || !lightboxCaption) return;
+  lightboxImage.src = image.src;
+  lightboxImage.alt = image.title;
+  lightboxCaption.textContent = image.title;
 }
 
-// Abrir lightbox
 function openLightbox(index) {
+  if (!lightbox || !imagesData.length) return;
   currentImageIndex = index;
-  updateLightboxImage();
+  updateLightbox();
   lightbox.classList.add('active');
-  document.body.style.overflow = 'hidden';
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('lightbox-open');
 }
 
-// Cerrar lightbox
 function closeLightbox() {
-  lightbox.classList.remove('active');
-  document.body.style.overflow = '';
+  lightbox?.classList.remove('active');
+  lightbox?.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('lightbox-open');
 }
 
-// Actualizar imagen del lightbox
-function updateLightboxImage() {
-  if (imagesData[currentImageIndex]) {
-    lightboxImage.src = imagesData[currentImageIndex].src;
-    lightboxImage.alt = imagesData[currentImageIndex].title;
-    lightboxCaption.textContent = imagesData[currentImageIndex].title;
-  }
-
-  // Ocultar botones prev/next si no hay suficientes imágenes
-  lightboxPrev.style.display = imagesData.length > 1 ? 'flex' : 'none';
-  lightboxNext.style.display = imagesData.length > 1 ? 'flex' : 'none';
-}
-
-// Navegación: imagen anterior
-function showPrevImage() {
+projectButtons.forEach((button, index) => button.addEventListener('click', () => openLightbox(index)));
+document.getElementById('lightbox-close')?.addEventListener('click', closeLightbox);
+document.querySelector('.lightbox__overlay')?.addEventListener('click', closeLightbox);
+document.getElementById('lightbox-prev')?.addEventListener('click', () => {
   currentImageIndex = (currentImageIndex - 1 + imagesData.length) % imagesData.length;
-  updateLightboxImage();
-}
-
-// Navegación: imagen siguiente
-function showNextImage() {
+  updateLightbox();
+});
+document.getElementById('lightbox-next')?.addEventListener('click', () => {
   currentImageIndex = (currentImageIndex + 1) % imagesData.length;
-  updateLightboxImage();
-}
-
-// Event Listeners del Lightbox
-if (lightboxClose) {
-  lightboxClose.addEventListener('click', closeLightbox);
-}
-
-if (lightboxOverlay) {
-  lightboxOverlay.addEventListener('click', closeLightbox);
-}
-
-if (lightboxPrev) {
-  lightboxPrev.addEventListener('click', showPrevImage);
-}
-
-if (lightboxNext) {
-  lightboxNext.addEventListener('click', showNextImage);
-}
-
-// Cerrar con tecla ESC y navegar con flechas
-document.addEventListener('keydown', (e) => {
-  if (lightbox.classList.contains('active')) {
-    if (e.key === 'Escape') {
-      closeLightbox();
-    } else if (e.key === 'ArrowLeft') {
-      showPrevImage();
-    } else if (e.key === 'ArrowRight') {
-      showNextImage();
-    }
-  }
+  updateLightbox();
+});
+document.addEventListener('keydown', event => {
+  if (!lightbox?.classList.contains('active')) return;
+  if (event.key === 'Escape') closeLightbox();
+  if (event.key === 'ArrowLeft') document.getElementById('lightbox-prev')?.click();
+  if (event.key === 'ArrowRight') document.getElementById('lightbox-next')?.click();
 });
 
-// Inicializar lightbox cuando el DOM esté listo
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initLightbox);
-} else {
-  initLightbox();
-}
-
-// ==========================================
-// Dynamic Year in Footer
-// ==========================================
 const yearElement = document.getElementById('current-year');
-if (yearElement) {
-  yearElement.textContent = new Date().getFullYear();
-}
-
+if (yearElement) yearElement.textContent = new Date().getFullYear();
+updateScrollState();

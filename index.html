@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Samuel Sánchez Heredia - Portfolio</title>
   <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="Portfolio profesional de Samuel Sánchez Heredia - Desarrollador y profesional tecnológico">
+  <meta name="description" content="Portfolio de Samuel Sánchez Heredia, desarrollador web especializado en IA, Big Data y productos digitales.">
+  <meta name="color-scheme" content="dark">
+  <link rel="preload" as="image" href="img/profile.png" fetchpriority="high">
 
   <meta property="og:title" content="Samuel Sánchez Heredia - Portfolio">
   <meta property="og:type" content="website">
@@ -14,7 +16,7 @@
   <meta property="og:image" content="">
   <meta property="og:image:alt" content="Samuel Sánchez Heredia Portfolio">
 
-  <link rel="icon" type="image/jpg" href="img/favicon.png" />
+  <link rel="icon" type="image/png" href="img/favicon.png">
 
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#2563eb">
@@ -24,7 +26,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -54,9 +56,9 @@
         </li>
       </ul>
 
-      <div class="nav__toggle" id="nav-toggle">
-        <i class="fas fa-bars"></i>
-      </div>
+      <button class="nav__toggle" id="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
     </nav>
   </header>
 
@@ -109,7 +111,7 @@
         <div class="hero__image-wrapper">
           <div class="hero__image-bg"></div>
           <!-- Reemplaza esta URL con img/profile.jpg cuando tengas tu foto -->
-          <img src="img/profile.png" alt="Samuel Sánchez Heredia" class="hero__img">
+          <img src="img/profile.png" alt="Samuel Sánchez Heredia" class="hero__img" width="800" height="800" fetchpriority="high">
           <div class="hero__decorations">
             <div class="decoration decoration--1"></div>
             <div class="decoration decoration--2"></div>
@@ -164,7 +166,7 @@
           </div>
 
           <div class="about__cv">
-            <a href="files/CV_Samuel_Sanchez.pdf" download="CV_Samuel_Sanchez_Heredia.pdf" class="btn btn--cv">
+            <a href="files/CV_Samuel_Sanchez_Heredia.pdf" download="CV_Samuel_Sanchez_Heredia.pdf" class="btn btn--cv">
               <i class="fas fa-download"></i>
               <span>Descargar CV</span>
             </a>
@@ -336,12 +338,12 @@
 
         <article class="project__card">
           <div class="project__image">
-            <img src="img/project1.png" alt="Proyecto 1" class="project-img">
+            <img src="img/project1.png" alt="Base de datos vectorial educativa" class="project-img" width="1200" height="675" loading="lazy" decoding="async">
             <div class="project__overlay">
               <button class="project__link project__link--view" data-image="img/project1.png" data-title="Proyecto 1">
                 <i class="fas fa-search-plus"></i>
               </button>
-              <a href="https://github.com/SamuelSanchezHeredia/BBDD_vectorial_temas.git" class="project__link" target="_blank">
+              <a href="https://github.com/SamuelSanchezHeredia/BBDD_vectorial_temas.git" class="project__link" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-github"></i>
               </a>
             </div>
@@ -363,12 +365,12 @@
 
         <article class="project__card">
           <div class="project__image">
-            <img src="img/project2.png" alt="Proyecto 2" class="project-img">
+            <img src="img/project2.png" alt="Análisis exploratorio de ventas" class="project-img" width="1200" height="675" loading="lazy" decoding="async">
             <div class="project__overlay">
               <button class="project__link project__link--view" data-image="img/project2.png" data-title="Proyecto 2">
                 <i class="fas fa-search-plus"></i>
               </button>
-              <a href="https://github.com/SamuelSanchezHeredia/product_sales_dataset_DataAnalysis.git" class="project__link" target="_blank">
+              <a href="https://github.com/SamuelSanchezHeredia/product_sales_dataset_DataAnalysis.git" class="project__link" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-github"></i>
               </a>
             </div>
@@ -389,12 +391,12 @@
 
         <article class="project__card">
           <div class="project__image">
-            <img src="img/project3.png" alt="Proyecto 3" class="project-img">
+            <img src="img/project3.png" alt="Asistente de inteligencia artificial para exámenes" class="project-img" width="1200" height="675" loading="lazy" decoding="async">
             <div class="project__overlay">
               <button class="project__link project__link--view" data-image="img/project3.png" data-title="Proyecto 3">
                 <i class="fas fa-search-plus"></i>
               </button>
-              <a href="https://github.com/SamuelSanchezHeredia/Asistente_IA_Examenes.git" class="project__link" target="_blank">
+              <a href="https://github.com/SamuelSanchezHeredia/Asistente_IA_Examenes.git" class="project__link" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-github"></i>
               </a>
             </div>
@@ -415,7 +417,7 @@
 
         <article class="project__card">
           <div class="project__image">
-            <img src="img/project4.jpg" alt="Proyecto 4" class="project-img">
+            <img src="img/project4.jpg" alt="Plantilla de portfolio profesional" class="project-img" width="1200" height="675" loading="lazy" decoding="async">
             <div class="project__overlay">
               <button class="project__link project__link--view" data-image="img/project4.jpg" data-title="Proyecto 4">
                 <i class="fas fa-search-plus"></i>
@@ -486,7 +488,7 @@
         <!-- Imagen decorativa -->
         <div class="contact__image">
           <div class="contact__image-wrapper">
-            <img src="img/contact.jpg" alt="Contacto" class="contact__img">
+            <img src="img/contact.jpg" alt="Espacio de trabajo para contacto" class="contact__img" width="900" height="1200" loading="lazy" decoding="async">
             <div class="contact__image-decoration"></div>
           </div>
         </div>
@@ -524,22 +526,22 @@
   </footer>
 
   <!-- Scroll to top button -->
-  <button class="scroll-top" id="scroll-top">
-    <i class="fas fa-arrow-up"></i>
+  <button class="scroll-top" id="scroll-top" type="button" aria-label="Volver arriba">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
   </button>
 
   <!-- Image Lightbox Modal -->
-  <div class="lightbox" id="lightbox">
+  <div class="lightbox" id="lightbox" aria-hidden="true">
     <div class="lightbox__overlay"></div>
     <div class="lightbox__content">
-      <button class="lightbox__close" id="lightbox-close">
-        <i class="fas fa-times"></i>
+      <button class="lightbox__close" id="lightbox-close" type="button" aria-label="Cerrar galería">
+        <i class="fas fa-times" aria-hidden="true"></i>
       </button>
-      <button class="lightbox__prev" id="lightbox-prev">
-        <i class="fas fa-chevron-left"></i>
+      <button class="lightbox__prev" id="lightbox-prev" type="button" aria-label="Imagen anterior">
+        <i class="fas fa-chevron-left" aria-hidden="true"></i>
       </button>
-      <button class="lightbox__next" id="lightbox-next">
-        <i class="fas fa-chevron-right"></i>
+      <button class="lightbox__next" id="lightbox-next" type="button" aria-label="Imagen siguiente">
+        <i class="fas fa-chevron-right" aria-hidden="true"></i>
       </button>
       <div class="lightbox__image-container">
         <img src="" alt="" id="lightbox-image" class="lightbox__image">
@@ -548,7 +550,7 @@
     </div>
   </div>
 
-  <script src="js/app.js"></script>
+  <script src="js/app.js" defer></script>
 
 </body>
 

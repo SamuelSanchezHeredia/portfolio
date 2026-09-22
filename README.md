@@ -1,74 +1,78 @@
-# Portfolio Personal - Samuel Sánchez Heredia
+# Portfolio de Samuel Sánchez Heredia
 
-![Portfolio Preview](./img/preview.png)
+![Preview del portfolio](./img/preview.png)
 
-Portfolio personal profesional desarrollado con HTML5, CSS3 y JavaScript vanilla. Diseño moderno, responsive y optimizado para una excelente experiencia de usuario.
+Portfolio personal desarrollado con HTML5, CSS3 y JavaScript vanilla. Presenta experiencia en desarrollo web, IA y Big Data mediante una interfaz responsive, accesible y optimizada para carga rápida.
 
-## 🌟 Características
+## Desarrollo local
 
-- ✨ Diseño moderno y minimalista
-- 📱 Totalmente responsive (mobile-first)
-- ⚡ Rendimiento optimizado
-- 🎨 Animaciones suaves y profesionales
-- 🌐 Compatible con todos los navegadores modernos
-- ♿ Accesible (ARIA labels y semántica HTML)
-- 🔝 Botón scroll to top
-- 💫 Efectos de scroll reveal
+Requisitos: Node.js y npm.
 
-## 🚀 Demo en Vivo
+```bash
+npm install
+npm start
+```
 
-[Ver Portfolio en Vivo](https://samuelsanchezheredia.github.io/portfolio)
+El servidor de desarrollo abre el portfolio en `http://localhost:8080` y activa recarga en caliente. Para generar la versión de producción:
 
-## 📋 Secciones
+```bash
+npm run build
+```
 
-1. **Hero/Inicio** - Presentación principal con enlaces a redes sociales
-2. **Sobre Mí** - Información personal y profesional
-3. **Habilidades** - Skills técnicas con barras de progreso animadas
-4. **Proyectos** - Galería de proyectos destacados
-5. **Contacto** - Formulario de contacto y enlaces directos
-6. **Footer** - Información adicional y redes sociales
+El resultado se genera en `dist/`.
 
-## 🛠️ Tecnologías Utilizadas
+## Características
 
-- **HTML5** - Estructura semántica
-- **CSS3** - Estilos modernos con:
-  - CSS Grid & Flexbox
-  - Variables CSS (Custom Properties)
-  - Animaciones y transiciones
-  - Media queries para responsive
-- **JavaScript (ES6+)** - Interactividad:
-  - Menú móvil
-  - Scroll activo
-  - Animaciones on scroll
-  - Lazy loading
-  - Debouncing para performance
-- **Font Awesome** - Iconos
-- **Google Fonts** - Tipografía (Inter)
-- **Webpack** - Bundler y optimización
+- Navegación responsive con menú móvil accesible.
+- Hero con CTA, redes sociales y CV descargable.
+- Secciones de presentación, habilidades, proyectos y contacto.
+- Galería lightbox con navegación por botones y teclado.
+- Scroll activo, botón para volver arriba y reveals con `IntersectionObserver`.
+- Soporte para `prefers-reduced-motion` y estados de foco visibles.
+- Imágenes inferiores con `loading="lazy"`, `decoding="async"` y dimensiones explícitas.
+- Metadatos SEO básicos, manifest PWA y favicon.
 
-## 📄 Licencia
+## Optimizaciones aplicadas
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.txt](LICENSE.txt) para más detalles.
+- Se consolidaron los listeners de scroll en un único ciclo `requestAnimationFrame` con listener pasivo.
+- Se eliminó lógica duplicada y se protegieron elementos opcionales con comprobaciones seguras.
+- El script se carga con `defer` y la imagen de perfil se precarga con alta prioridad.
+- Se redimensionaron los assets al tamaño útil de pantalla. El directorio de imágenes pasó de aproximadamente 21 MB a 3.8 MB.
+- Se corrigió la configuración de producción para no copiar rutas inexistentes.
+- El build de producción queda en aproximadamente 3.75 MiB, con avisos informativos para imágenes todavía grandes.
 
-## 👤 Autor
+## Estructura
+
+- `index.html`: estructura semántica y contenido.
+- `css/style.css`: sistema visual, responsive y accesibilidad.
+- `js/app.js`: interacciones y rendimiento en cliente.
+- `img/`: imágenes optimizadas del portfolio.
+- `files/`: CV y guía para sustituirlo.
+- `webpack.config.*`: desarrollo y build de producción.
+
+## Verificación
+
+Comandos ejecutados tras los cambios:
+
+- `node --check js/app.js`
+- `npm run build`
+
+El build compila correctamente. Webpack todavía avisa de que `preview.png`, `profile.png`, `project2.png` y `project4.jpg` superan su umbral recomendado de 244 KB; se mantienen así para preservar calidad visual y porque ya se redujo el peso total de imágenes en torno a un 82 %.
+
+`npm install` puede mostrar vulnerabilidades en dependencias de desarrollo heredadas. Revisarlas con `npm audit` antes de publicar una cadena de build en CI.
+
+## Demo
+
+[Portfolio publicado](https://samuelsanchezheredia.github.io/portfolio)
+
+## Autor
 
 **Samuel Sánchez Heredia**
 
-- LinkedIn: [@samuelsanchezheredia](https://www.linkedin.com/in/samuelsanchezheredia/)
-- GitHub: [@samuelsanchezheredia](https://github.com/samuelsanchezheredia)
-- Email: samusanhe@gmail.com
+- [LinkedIn](https://www.linkedin.com/in/samuelsanchezheredia/)
+- [GitHub](https://github.com/samuelsanchezheredia)
+- [Email](mailto:samusanhe@gmail.com)
 
-## 🙏 Agradecimientos
+## Licencia
 
-- [Font Awesome](https://fontawesome.com/) por los iconos
-- [Google Fonts](https://fonts.google.com/) por la tipografía
-- [HTML5 Boilerplate](https://html5boilerplate.com/) por la base inicial
-- Comunidad de desarrolladores por la inspiración
-
-## 📊 Estado del Proyecto
-
-![GitHub last commit](https://img.shields.io/github/last-commit/samuelsanchezheredia/portfolio)
-![GitHub issues](https://img.shields.io/github/issues/samuelsanchezheredia/portfolio)
-![GitHub stars](https://img.shields.io/github/stars/samuelsanchezheredia/portfolio)
-
----
+Este proyecto está bajo la Licencia MIT. Consulta [LICENSE.txt](LICENSE.txt).
